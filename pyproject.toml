@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "worker"
+version = "0.1.0"
+description = ""
+authors = ["Your Name <you@example.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+sqlalchemy = {extras = ["asyncio"], version = "^2.0.36"}
+pydantic-settings = "^2.6.1"
+pydantic = "^2.10.2"
+psycopg = "^3.2.3"
+psycopg2-binary = "^2.9.10"
+asyncpg = "^0.30.0"
+aio-pika = "^9.5.3"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

@@ -1,3 +1,3 @@
-from worker.schema.schema import Product
+from schema.schema import Product
 
 __all__ = ["Product"]

@@ -8,19 +8,24 @@ ENV_FILE_PATH = BASE_DIR / ".env"
 
 
 class PostgreSQL(BaseSettings):
-    """Describes PostgreSQL DSN in preferred format."""
-
-    __separator = "://"
 
     model_config = SettingsConfigDict(
         env_prefix="POSTGRESQL_",
         env_file=str(ENV_FILE_PATH),
         env_file_encoding="utf-8",
     )
-
-    db_url: str = "postgres:asyncpg//postgres:1917@localhost:5431/parser"
+    db_name: str = "parser"
+    db_user: str = "postgres"
+    db_host: str = "127.0.0.1"
+    db_port: int = 5431
+    db_password: str = "1917"
     pool_size: int = 20
     debug: bool = True
+
+    @property
+    def db_url(self):
+
+        return f"postgresql+asyncpg://{self.db_user}:{self.db_password}@{self.db_host}:{self.db_port}/{self.db_name}"
 
 
 class RabbitmqSettings(BaseSettings):
@@ -42,6 +47,7 @@ class RabbitmqSettings(BaseSettings):
 class Config(BaseSettings):
     postgres: PostgreSQL
     rabbit_mq: RabbitmqSettings
+    debug: bool = True
 
     @classmethod
     def create(cls) -> "Config":
